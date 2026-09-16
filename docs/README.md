@@ -14,6 +14,7 @@ The RAG assistant explains and searches the system; it does not replace the visi
 | [Learning guide](LEARNING-GUIDE.md) | How to execute the project one lesson at a time |
 | [Architecture](ARCHITECTURE.md) | How the vision, inventory, and RAG systems fit together |
 | [RAG system](RAG.md) | What RAG is and how we will build it safely |
+| [OMLX integration](OMLX.md) | How local Apple Silicon model serving fits into RAG and optional vision helpers |
 | [Roadmap](ROADMAP.md) | The order of implementation and exit criteria |
 | [Decisions](DECISIONS.md) | Why the stack and boundaries were chosen |
 | [Original plan](PLAN.md) | Detailed product and engineering plan |

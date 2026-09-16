@@ -30,7 +30,9 @@ WHITE = (255, 255, 255)
 
 def font(size, bold=False):
     candidates = [
-        "/System/Library/Fonts/Supplemental/Arial Bold.ttf" if bold else "/System/Library/Fonts/Supplemental/Arial.ttf",
+        "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
+        if bold
+        else "/System/Library/Fonts/Supplemental/Arial.ttf",
         "/System/Library/Fonts/SFNS.ttf",
     ]
     for candidate in candidates:
@@ -42,7 +44,14 @@ def font(size, bold=False):
 def centered(draw, box, text, f, fill=WHITE):
     x1, y1, x2, y2 = box
     bb = draw.multiline_textbbox((0, 0), text, font=f, align="center", spacing=3)
-    draw.multiline_text(((x1 + x2 - (bb[2]-bb[0]))/2, (y1 + y2 - (bb[3]-bb[1]))/2), text, font=f, fill=fill, align="center", spacing=3)
+    draw.multiline_text(
+        ((x1 + x2 - (bb[2] - bb[0])) / 2, (y1 + y2 - (bb[3] - bb[1])) / 2),
+        text,
+        font=f,
+        fill=fill,
+        align="center",
+        spacing=3,
+    )
 
 
 def pipeline_png():
@@ -64,15 +73,23 @@ def pipeline_png():
     x0, y, bw, bh, gap = 50, 150, 190, 155, 48
     for i, (txt, color, sub) in enumerate(steps):
         x = x0 + i * (bw + gap)
-        d.rounded_rectangle((x, y, x+bw, y+bh), radius=18, fill=color)
-        centered(d, (x, y+15, x+bw, y+105), txt, label)
-        centered(d, (x, y+105, x+bw, y+145), sub, small, fill=(226,232,240))
-        if i < len(steps)-1:
-            ax = x+bw+8
-            ay = y+bh//2
-            d.line((ax, ay, ax+gap-16, ay), fill=(148,163,184), width=5)
-            d.polygon([(ax+gap-16, ay), (ax+gap-30, ay-10), (ax+gap-30, ay+10)], fill=(148,163,184))
-    d.text((52, 380), "We implement and test these stages one at a time—not all at once.", font=font(20), fill=(203,213,225))
+        d.rounded_rectangle((x, y, x + bw, y + bh), radius=18, fill=color)
+        centered(d, (x, y + 15, x + bw, y + 105), txt, label)
+        centered(d, (x, y + 105, x + bw, y + 145), sub, small, fill=(226, 232, 240))
+        if i < len(steps) - 1:
+            ax = x + bw + 8
+            ay = y + bh // 2
+            d.line((ax, ay, ax + gap - 16, ay), fill=(148, 163, 184), width=5)
+            d.polygon(
+                [(ax + gap - 16, ay), (ax + gap - 30, ay - 10), (ax + gap - 30, ay + 10)],
+                fill=(148, 163, 184),
+            )
+    d.text(
+        (52, 380),
+        "We implement and test these stages one at a time—not all at once.",
+        font=font(20),
+        fill=(203, 213, 225),
+    )
     im.save(ASSETS / "pipeline.png")
 
 
@@ -91,18 +108,28 @@ def roadmap_png():
     ]
     x0, y, bw, bh, gap = 42, 145, 210, 245, 28
     for i, (num, name, sub, color) in enumerate(phases):
-        x = x0 + i*(bw+gap)
-        d.rounded_rectangle((x, y, x+bw, y+bh), radius=16, fill=(30,41,59), outline=color, width=4)
-        d.ellipse((x+72, y+25, x+138, y+91), fill=color)
-        centered(d, (x+72, y+25, x+138, y+91), num, font(28, True))
-        centered(d, (x+10, y+110, x+bw-10, y+165), name, font(22, True), fill=WHITE)
-        centered(d, (x+10, y+170, x+bw-10, y+225), sub, font(16), fill=(203,213,225))
-        if i < len(phases)-1:
-            ax, ay = x+bw+4, y+bh//2
-            d.line((ax, ay, ax+gap-8, ay), fill=(148,163,184), width=4)
-            d.polygon([(ax+gap-8, ay), (ax+gap-20, ay-9), (ax+gap-20, ay+9)], fill=(148,163,184))
-    d.rounded_rectangle((60, 455, 1440, 535), radius=15, fill=(30,41,59))
-    d.text((90, 480), "Rule: finish one measurable vertical slice before adding the next layer.", font=font(22, True), fill=(226,232,240))
+        x = x0 + i * (bw + gap)
+        d.rounded_rectangle(
+            (x, y, x + bw, y + bh), radius=16, fill=(30, 41, 59), outline=color, width=4
+        )
+        d.ellipse((x + 72, y + 25, x + 138, y + 91), fill=color)
+        centered(d, (x + 72, y + 25, x + 138, y + 91), num, font(28, True))
+        centered(d, (x + 10, y + 110, x + bw - 10, y + 165), name, font(22, True), fill=WHITE)
+        centered(d, (x + 10, y + 170, x + bw - 10, y + 225), sub, font(16), fill=(203, 213, 225))
+        if i < len(phases) - 1:
+            ax, ay = x + bw + 4, y + bh // 2
+            d.line((ax, ay, ax + gap - 8, ay), fill=(148, 163, 184), width=4)
+            d.polygon(
+                [(ax + gap - 8, ay), (ax + gap - 20, ay - 9), (ax + gap - 20, ay + 9)],
+                fill=(148, 163, 184),
+            )
+    d.rounded_rectangle((60, 455, 1440, 535), radius=15, fill=(30, 41, 59))
+    d.text(
+        (90, 480),
+        "Rule: finish one measurable vertical slice before adding the next layer.",
+        font=font(22, True),
+        fill=(226, 232, 240),
+    )
     im.save(ASSETS / "roadmap.png")
 
 
@@ -134,7 +161,11 @@ def make_doc():
     styles = doc.styles
     styles["Normal"].font.name = "Aptos"
     styles["Normal"].font.size = Pt(10.5)
-    for name, size, color in [("Title", 30, "0F172A"), ("Heading 1", 20, "1D4ED8"), ("Heading 2", 14, "0F766E")]:
+    for name, size, color in [
+        ("Title", 30, "0F172A"),
+        ("Heading 1", 20, "1D4ED8"),
+        ("Heading 2", 14, "0F766E"),
+    ]:
         styles[name].font.name = "Aptos Display"
         styles[name].font.size = Pt(size)
         styles[name].font.color.rgb = RGBColor.from_string(color)
@@ -149,7 +180,9 @@ def make_doc():
 
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("Learn computer vision by building the system one understandable piece at a time.")
+    r = p.add_run(
+        "Learn computer vision by building the system one understandable piece at a time."
+    )
     r.italic = True
     r.font.size = Pt(12)
 
@@ -157,8 +190,12 @@ def make_doc():
     doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
 
     doc.add_heading("1. What are we building?", level=1)
-    doc.add_paragraph("ShelfSense is a local-first computer-vision inventory tool. It receives a shelf image, finds visible products, identifies known products, counts them, and reports inventory conditions such as low stock or out of stock.")
-    doc.add_paragraph("The important learning decision is to avoid building the whole platform immediately. We will build a sequence of small behaviors that can be run, tested, measured, and explained.")
+    doc.add_paragraph(
+        "ShelfSense is a local-first computer-vision inventory tool. It receives a shelf image, finds visible products, identifies known products, counts them, and reports inventory conditions such as low stock or out of stock."
+    )
+    doc.add_paragraph(
+        "The important learning decision is to avoid building the whole platform immediately. We will build a sequence of small behaviors that can be run, tested, measured, and explained."
+    )
 
     doc.add_heading("2. The plan in one sentence", level=1)
     p = doc.add_paragraph()
@@ -174,16 +211,42 @@ def make_doc():
     table = doc.add_table(rows=1, cols=3)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     table.style = "Table Grid"
-    for c, text in zip(table.rows[0].cells, ["Phase", "What we build", "What you learn"], strict=True):
+    for c, text in zip(
+        table.rows[0].cells, ["Phase", "What we build", "What you learn"], strict=True
+    ):
         set_cell_text(c, text, True, "FFFFFF")
         shade(c, "1D4ED8")
     rows = [
-        ("0 — Foundation", "FastAPI app, settings, health route, tests", "Project structure, HTTP, testing, tooling"),
-        ("1 — Image ingestion", "Upload and validate an image", "Files, pixels, validation, errors"),
-        ("2 — Detection", "Find products with bounding boxes", "Models, confidence, IoU, precision/recall"),
-        ("3 — Identification", "Map product crops to 3–5 SKUs", "Classification, datasets, unknown results"),
-        ("4 — Inventory", "Count SKUs and create events", "Domain models, databases, business rules"),
-        ("5 — Dashboard", "Show observations and alerts", "Frontend, API contracts, product design"),
+        (
+            "0 — Foundation",
+            "FastAPI app, settings, health route, tests",
+            "Project structure, HTTP, testing, tooling",
+        ),
+        (
+            "1 — Image ingestion",
+            "Upload and validate an image",
+            "Files, pixels, validation, errors",
+        ),
+        (
+            "2 — Detection",
+            "Find products with bounding boxes",
+            "Models, confidence, IoU, precision/recall",
+        ),
+        (
+            "3 — Identification",
+            "Map product crops to 3–5 SKUs",
+            "Classification, datasets, unknown results",
+        ),
+        (
+            "4 — Inventory",
+            "Count SKUs and create events",
+            "Domain models, databases, business rules",
+        ),
+        (
+            "5 — Dashboard",
+            "Show observations and alerts",
+            "Frontend, API contracts, product design",
+        ),
     ]
     for row in rows:
         cells = table.add_row().cells
@@ -204,7 +267,9 @@ def make_doc():
     ]
     for s in steps:
         doc.add_paragraph(s, style="List Number")
-    doc.add_paragraph("This is the core skill: not merely writing code, but connecting a requirement to an implementation, a test, and evidence.")
+    doc.add_paragraph(
+        "This is the core skill: not merely writing code, but connecting a requirement to an implementation, a test, and evidence."
+    )
 
     doc.add_heading("5. The first milestone", level=1)
     doc.add_paragraph("Our first milestone is intentionally small:")
@@ -218,16 +283,24 @@ def make_doc():
         "Tests and a small evaluation report",
     ]:
         doc.add_paragraph(s, style="List Bullet")
-    doc.add_paragraph("We will not start with live video, a multi-store system, cloud deployment, or a polished dashboard. Those are later layers, not prerequisites for learning the fundamentals.")
+    doc.add_paragraph(
+        "We will not start with live video, a multi-store system, cloud deployment, or a polished dashboard. Those are later layers, not prerequisites for learning the fundamentals."
+    )
 
     doc.add_heading("6. What the technical pieces mean", level=1)
     concepts = [
         ("Detection", "Where are the products? The result is a set of bounding boxes."),
-        ("Identification", "What product is inside each detected box? The result is a SKU or unknown."),
+        (
+            "Identification",
+            "What product is inside each detected box? The result is a SKU or unknown.",
+        ),
         ("Aggregation", "How many detections belong to each SKU?"),
         ("Observation", "What did this particular image show at this time?"),
         ("Event", "What should the business know or act on, such as low stock?"),
-        ("Abstention", "The system admits it does not know instead of making a confident-looking guess."),
+        (
+            "Abstention",
+            "The system admits it does not know instead of making a confident-looking guess.",
+        ),
     ]
     t2 = doc.add_table(rows=1, cols=2)
     t2.style = "Table Grid"
@@ -240,8 +313,12 @@ def make_doc():
         set_cell_text(cells[1], meaning)
 
     doc.add_heading("7. Your role as the learner", level=1)
-    doc.add_paragraph("You are not expected to know everything before starting. You are expected to inspect the code, run commands, ask why, and attempt small exercises. I can implement with you, but I will explain the design and leave space for you to reason about the next step.")
-    doc.add_paragraph("A successful session is not the session with the most code. It is the session where you can explain what changed, why it changed, and how we know it works.")
+    doc.add_paragraph(
+        "You are not expected to know everything before starting. You are expected to inspect the code, run commands, ask why, and attempt small exercises. I can implement with you, but I will explain the design and leave space for you to reason about the next step."
+    )
+    doc.add_paragraph(
+        "A successful session is not the session with the most code. It is the session where you can explain what changed, why it changed, and how we know it works."
+    )
 
     doc.add_heading("8. First exercise", level=1)
     doc.add_paragraph("From the repository directory, run:")
@@ -262,10 +339,12 @@ def make_doc():
         doc.add_paragraph(q, style="List Bullet")
 
     doc.add_heading("9. Next lesson", level=1)
-    doc.add_paragraph("We will build a health endpoint and settings object. It will be the first real feature and will teach how the application starts, how an HTTP request reaches code, and how we test an external behavior.")
+    doc.add_paragraph(
+        "We will build a health endpoint and settings object. It will be the first real feature and will teach how the application starts, how an HTTP request reaches code, and how we test an external behavior."
+    )
     doc.add_paragraph("Expected endpoint:")
     code = doc.add_paragraph()
-    run = code.add_run("GET /healthz  →  {\"status\": \"ok\", \"version\": \"0.1.0\"}")
+    run = code.add_run('GET /healthz  →  {"status": "ok", "version": "0.1.0"}')
     run.font.name = "Menlo"
     run.font.size = Pt(9)
 
@@ -285,7 +364,9 @@ def make_doc():
 
     footer = sec.footer.paragraphs[0]
     footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    footer.add_run("ShelfSense · Learning by building · Local-first computer vision").font.size = Pt(8)
+    footer.add_run(
+        "ShelfSense · Learning by building · Local-first computer vision"
+    ).font.size = Pt(8)
 
     doc.save(OUT / "ShelfSense-Learning-Plan.docx")
 

@@ -161,9 +161,10 @@ Create a small question set with expected evidence and acceptable answers. Test:
 | --- | --- | --- |
 | Structured storage | SQLite + SQLAlchemy | Already needed for observations and rules |
 | Keyword retrieval | SQLite FTS5 or database filters | Exact SKU/barcode matching is important |
-| Embeddings | Provider adapter, local-first option | Avoid coupling the domain to one model |
-| Vector index | Local index first; PostgreSQL/pgvector later | Defer infrastructure until needed |
-| Generation | LLM adapter; local model option | Keep privacy and cost choices explicit |
+| Embeddings | Provider adapter, local-first option (OMLX) | Avoid coupling the domain to one model |
+| Vector index | Local index first; PostgreSQL/pgvector later | Defer infrastructure until measurement |
+| Generation | LLM adapter; OMLX local backend first | Keep privacy and provider choices explicit |
+| Reranking | Optional provider adapter (OMLX) | Improve ordering only after baseline retrieval |
 | API | FastAPI | Same boundary as vision service |
 | Evaluation | Versioned question/evidence fixtures | RAG quality needs repeatable tests |
 

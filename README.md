@@ -8,9 +8,17 @@ ShelfSense turns a shelf image into structured inventory observations:
 image -> detection -> product identification -> SKU counts -> inventory events -> dashboard
 ```
 
-The first milestone is deliberately narrow: one shelf image, 3–5 known SKUs, reproducible local inference, and an API that returns detections and counts. Training, OCR, barcode reading, embeddings, video tracking, and a web dashboard follow only after that baseline is measured.
+The first milestone is deliberately narrow: one shelf image, 3–5 known SKUs, reproducible local inference, and an API that returns detections and counts. OMLX is planned as the local Apple Silicon model-serving layer for RAG, embeddings, reranking, and optional VLM/OCR experiments; it will not silently replace deterministic inventory rules.
 
-## Project status
+## Documentation
+
+- [Documentation index](docs/README.md)
+- [Architecture with Mermaid diagrams](docs/ARCHITECTURE.md)
+- [RAG system plan](docs/RAG.md)
+- [OMLX integration](docs/OMLX.md)
+- [Learning guide](docs/LEARNING-GUIDE.md)
+- [Roadmap](docs/ROADMAP.md)
+- [Illustrated learning plan](docs/ShelfSense-Learning-Plan.docx)
 
 Repository initialized. Architecture and delivery plan: `docs/PLAN.md`.
 
